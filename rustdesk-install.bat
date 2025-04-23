@@ -7,6 +7,9 @@ set alfanum=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789
 ::Example can be JesusLovesYou2025
 set rustdesk_pw=
 
+::Paste your encryption key below not in "" (Note - Script needs to be Run as Administrator)
+set rdkey=
+
 ::Only for creating a random set password.
 for /L %%b in (1, 1, 12) do (
     set /A rnd_num=!RANDOM! %% 62
@@ -40,6 +43,7 @@ if not exist %download_path% md %download_path%
 cd %download_path%
 echo ------ Downloading RustDesk -----
 echo ------     Please Wait      -----
+::Change for newer versions of RustDesk
 curl -L "https://github.com/rustdesk/rustdesk/releases/download/1.3.8/rustdesk-1.3.8-x86_64.exe" -o rustdesk.exe
 echo ------ Installing RustDesk -----
 rustdesk.exe --silent-install
@@ -52,6 +56,9 @@ for /f "delims=" %%i in ('rustdesk.exe --get-id ^| more') do set rustdesk_id=%%i
 
 ::Line of code that changes the ID Server - (Note - Script needs to be Run as Administrator for setting to take effect)
 rustdesk.exe --option custom-rendezvous-server %rustdesk_svr%
+
+::Line to set the encryption key - (Note - Script needs to be Run as Administrator for setting to take effect)
+rustdesk.exe --option key %rdkey%
 rustdesk.exe --password %rustdesk_pw%
 
 echo ---- Installation Completed ----
@@ -62,5 +69,5 @@ echo RustDesk ID: %rustdesk_id%
 REM Show the value of the Password Variable
 echo Password: %rustdesk_pw%
 echo ...............................................
-echo -- Close Window when required --
+echo -- Closing Window In... --
 timeout /t 5

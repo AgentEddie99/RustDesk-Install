@@ -9,6 +9,9 @@ $rustdesk_svr="rustdesk.domain.com"
 # Download Path that like to have RustDesk go to before it installs
 $download_path= "C:\Temp\"
 
+#Paste your encryption key below in the ""
+$rdkey = "5jTTn+CtKWK4................." #Please replace the example text.
+
 ################################### Please Do Not Edit Below This Line #########################################
 
 # Run as administrator and stays in the current directory
@@ -113,6 +116,10 @@ cd $env:ProgramFiles\RustDesk\
 #Line of code that changes the ID Server - (Note - Script needs to be Run as Administrator)
 .\rustdesk.exe --option custom-rendezvous-server $rustdesk_svr
 
+#Line to set the encryption key
+.\rustdesk.exe --option key $rdkey
+
+# Sets RustDesk to your set password
 .\rustdesk.exe --password $rustdesk_pw
 
 Write-Output "..............................................."
